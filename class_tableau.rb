@@ -1,33 +1,21 @@
 #3ème partie :
   # Maintient l'état du tableau de jeu
-<<<<<<< HEAD
   require_relative 'class_joueur'
 
   class Tableau
       # Initialiser
       def initialize
         		  # Configuration de la structure de données à vide
-=======
-  class Tableau
-
-      # Initialiser
-      def initialize
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
               @tableau = Array.new(3){Array.new(3)}
       end
 
       # retourne_etat_du_tableau
       def retourne_etat_du_tableau
         puts
-<<<<<<< HEAD
       		# itère (each do) sur la structure de donnée
           @tableau.each do |ligne|
             ligne.each do |cellule|
   		           #Afficher un marqueur existant, SI il existe SINON vide
-=======
-          @tableau.each do |ligne|
-            ligne.each do |cellule|
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
                  cellule.nil? ? print("-") : print(cellule.to_s)
             end
             puts
@@ -37,56 +25,36 @@
 
 
       # ajouter_un_picto
-<<<<<<< HEAD
-      def ajouter_un_picto (position, picto)
+      def ajouter_un_picto(position, picto)
      	  # SI case_souhaite_est_valide ?
-        if case_souhaite_est_valide(position)
+        if case_souhaite_est_valide?(position)
      		  # place le marqueur
           @tableau[position[0]][position[1]] = picto
           true
      		 # SINON
         else
       			# Message d'erreur
-=======
-      def ajouter_un_picto
-        if case_souhaite_est_valide?(position)
-          @tableau[position[0]][position[1]] = picto
-          true
-        else
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
             false
         end
       end
 
 
       # case_souhaite_est_valide ?
-<<<<<<< HEAD
-      def case_souhaite_est_valide(position)
-          # coordonnee_valide
-          if coordonnee_valide(position)
-          # case_non_occupee ?
-            case_disponible(position)
-=======
       def case_souhaite_est_valide?(position)
+          # coordonnee_valide
           if coordonnee_valide?(position)
-            case_non_occupee?(position)
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
+          # case_non_occupee ?
+            case_disponible?(position)
           end
       end
 
 
       # coordonnee_valide ?
-<<<<<<< HEAD
-      def coordonnee_valide(position)
+      def coordonnee_valide?(position)
           # A MOINS QUE la position souhaitee est incluse dans la limite 3 X 3
           if (0..2).include?(position[0]) && (0..2).include?(position[1])
             true
               # SINON Message d'erreur d'affichage
-=======
-      def coordonnee_valide?(position)
-          if (0..2).include?(position[0]) && (0..2).include?(position[1])
-            true
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
           else
             puts "la case demandée est hors limite"
           end
@@ -94,53 +62,17 @@
 
 
       # case_disponible ?
-<<<<<<< HEAD
-      def case_disponible(position)
+      def case_disponible?(position)
           # À MOINS QUE la case sur le tableau ne soit occupée
           if @tableau[position[0]][position[1]].nil?
             true
               # SINON Affiche un message d'erreur
-=======
-      def case_disponible
-          if @tableau[position[0]][position[1]].nil?
-            true
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
           else
             puts "La case est déjà occupée"
           end
       end
 
 
-<<<<<<< HEAD
-=======
-      # combinaison_gagnante
-      def combinaison_gagnante
-          victoire_diagonale?(picto) ||
-          victoire_horizontal?(picto) ||
-          victoire_vertical?(picto)
-      end
-
-      # victoire_diagonale
-      def victoire_diagonale
-          diagonale.any? do |diag|
-            diag.all?{|cellule| cellule == picto }
-          end
-      end
-
-      # victoire_verticale
-      def victoire_verticale
-          verticale.any? do |vert|
-            vert.all?{|cellule| cellule == picto }
-          end
-      end
-
-
-      # victoire_horizontal ?
-      def victoire_horizontal
-        horizontale.any? do |horiz|
-          horiz.all?{|cellule| cellule == picto }
-
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
       # diagonale
       def diagonale
           # Retourner les pictos sur la diagonale
@@ -151,55 +83,44 @@
 
       # verticale
       def verticale
-<<<<<<< HEAD
           # Retrouner les pictos verticaux
-=======
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
           @tableau
       end
 
 
       # horizontale
       def horizontale
-<<<<<<< HEAD
           # Retrouner les pictos horizontaux
-=======
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
-          horizontales = []
+          horizontale = []
           3.times do |i|
-            horizontales << [@tableau[0][i],@tableau[1][i],@tableau[2][i]]
+            horizontale << [@tableau[0][i],@tableau[1][i],@tableau[2][i]]
         end
-        horizontales
-<<<<<<< HEAD
+        horizontale
       end
-=======
-    end
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
 
 
       # complet
-      def complet
-<<<<<<< HEAD
+      def complet?
           # toutes les cases sont occupées
           @tableau.all? do |ligne|
-            ligne.none(:nil)
+            ligne.none?(&:nil?)
           end
       end
 
 
       # combinaison_gagnante
-      def combinaison_gagnante(picto)
+      def combinaison_gagnante?(picto)
           # victoire_diagonale
           # ou victoire_verticale
           # ou victoire_horizontale
-          victoire_diagonale(picto) ||
-          victoire_horizontale(picto) ||
-          victoire_verticale(picto)
+          victoire_diagonale?(picto) ||
+          victoire_horizontale?(picto) ||
+          victoire_verticale?(picto)
       end
 
 
       # victoire_diagonale
-      def victoire_diagonale(picto)
+      def victoire_diagonale?(picto)
           diagonale.any? do |diag|
             diag.all?{|cellule| cellule == picto }
           end
@@ -207,7 +128,7 @@
 
 
       # victoire_verticale
-      def victoire_verticale(picto)
+      def victoire_verticale?(picto)
           verticale.any? do |vert|
             vert.all?{|cellule| cellule == picto }
           end
@@ -215,7 +136,7 @@
 
 
       # victoire_horizontal ?
-      def victoire_horizontale(picto)
+      def victoire_horizontale?(picto)
         horizontale.any? do |horiz|
           horiz.all?{|cellule| cellule == picto }
       end
@@ -223,12 +144,4 @@
 
   #FIN
   end
-=======
-          @tableau.all? do |ligne|
-            ligne.none?(:nil?)
-          end
-      end
-
-#FIN
->>>>>>> ac130148123fc2a986a11a645e7f1861174f8267
 end
